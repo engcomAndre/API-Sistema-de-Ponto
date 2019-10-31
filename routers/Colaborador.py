@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Query
 
-from app.models.ColaboradorModel import Colaborador
+from models.ColaboradorModel import Colaborador
 
-from app.utils.responser_utils import gen_mensagem
+from utils.responser_utils import gen_mensagem
 
 router = APIRouter()
 

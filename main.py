@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 
-from app.routers import Colaborador, InfoPonto, Ponto
+from routers import Colaborador, InfoPonto, Ponto
 
 app = FastAPI(__name__
               , title="Desafio Ponto",

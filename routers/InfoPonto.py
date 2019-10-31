@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 from pymongo import MongoClient
 import re
-import datetime
 import pendulum
 
 router = APIRouter()

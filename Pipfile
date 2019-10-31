@@ -6,11 +6,15 @@ verify_ssl = true
 [dev-packages]
 uvicorn = "*"
 pytest = "*"
+mongomock = "*"
 
 [packages]
 fastapi = "*"
 pendulum = "*"
 pymongo = "*"
+mongomock = "*"
+yaml = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.6"

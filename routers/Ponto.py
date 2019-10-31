@@ -2,9 +2,9 @@ from fastapi import APIRouter, Query
 import pendulum
 
 from pymongo import MongoClient
-from app.utils.responser_utils import gen_mensagem
-from app.models.ColaboradorModel import Colaborador
-from app.models.PontoModel import Ponto
+from utils.responser_utils import gen_mensagem
+from models.ColaboradorModel import Colaborador
+from models.PontoModel import Ponto
 
 router = APIRouter()
 

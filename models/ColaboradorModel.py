@@ -3,8 +3,7 @@ from pydantic import BaseModel, Schema, Required
 # client = MongoClient('mongodb://localhost:27017')
 # db = client.Desafio_Ponto
 # colaborador_db = db["colaborador"]
-from app.db.db import Db
-
+from db.db import Db
 
 
 class Colaborador(BaseModel):
