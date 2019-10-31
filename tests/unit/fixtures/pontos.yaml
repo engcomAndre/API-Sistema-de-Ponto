@@ -1,0 +1,39 @@
+-
+_id: "1"
+colaborador_id: "1"
+data: "01/01/2010"
+registros_ES: [{
+                 _id: "1"
+                   entrada: "08:00:00"
+                   saida: "12:00:00"
+               },{
+                 _id: "2"
+                   entrada: "13:00:00"
+                   saida: "17:00:00"
+               }],
+
+_id: "2"
+colaborador_id: "1"
+data: "02/01/2010"
+registros_ES: [{
+                 _id: "1"
+                   entrada: "08:00:00"
+                   saida: "12:00:00"
+               },{
+                 _id: "2"
+                   entrada: "13:00:00"
+                   saida: "17:00:00"
+               }],
+
+_id: "3"
+colaborador_id: "1"
+data: "03/01/2010"
+registros_ES: [{
+                 _id: "1"
+                   entrada: "08:00:00"
+                   saida: "12:00:00"
+               },{
+                 _id: "2"
+                   entrada: "13:00:00"
+                   saida: "17:00:00"
+               }],
