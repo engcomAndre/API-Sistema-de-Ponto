@@ -8,7 +8,7 @@ class Db:
 
     @staticmethod
     def find(document: str, where: dict):
-        db = Db.db[document]
+        # db = Db.db[document]
         return list(Db.db[document].find(where))
 
     @staticmethod
