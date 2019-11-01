@@ -6,12 +6,13 @@ from utils.responser_utils import gen_mensagem
 
 router = APIRouter()
 
+
 @router.get("/")
 async def consultar(
         colaborador_id: str = Query(None, title='Identificador', description="Identificador unico do colaborador"),
         cpf: str = Query(None, title='CPF', description="Campo CPF do colaborador")
 ):
-    colaboradores = Colaborador.find(colaborador_id, cpf)
+    colaboradores = Colaborador.find(colaborador_id=colaborador_id, cpf=cpf)
     if colaboradores:
         return gen_mensagem("Colaborador(es) encontrado(s).", colaboradores)
     return gen_mensagem("Colaborador(es) não encontrado(s) para os parametros informados.")
