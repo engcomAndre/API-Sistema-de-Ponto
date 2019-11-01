@@ -19,7 +19,7 @@ async def consultar(
 
 @router.post("/")
 async def criar(colaborador: Colaborador):
-    if Colaborador.find(colaborador.cpf):
+    if Colaborador.find(cpf=colaborador.cpf):
         return gen_mensagem("Já existe colaborador cadastrado com o CPF informado")
     colaborador_salvo = colaborador.save()
     if colaborador_salvo:

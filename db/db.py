@@ -1,32 +1,23 @@
 from pymongo import MongoClient
 from pydantic import BaseModel
+from uuid import uuid1
 
 
 class Db:
-    db: str
-
-    @staticmethod
-    def init_db(mongo_url):
-        Db.connect_db = MongoClient(mongo_url)
-        Db.db = Db.connect_db.DesafioPonto
-
-    @staticmethod
-    def get_doc(document: str):
-        return Db.db[document]
+    db: MongoClient
 
     @staticmethod
     def find(document: str, instance: BaseModel):
-        return Db.get_doc(document).find(instance.dict())
-
+        return list(Db.db[document].find(instance))
 
     @staticmethod
     def save(document: str, instance: BaseModel):
-        return Db.get_doc(document).insert_one(instance.dict())
-
+        return Db.db[document].insert_one({"_id": str(uuid1()), **instance.dict()})
 
     @staticmethod
     def update(document: str, instance: BaseModel, new_instance: BaseModel):
-        return Db.get_doc(document).update_one(instance.dict(), new_instance.dict())
+        return Db.db[document].update_one(instance.dict(), new_instance.dict())
 
+    @staticmethod
     def delete(document: str, instance: BaseModel):
-        return Db.get_doc(document).delete_one(instance.dict())
+        return Db.db[document].delete_one(instance)
