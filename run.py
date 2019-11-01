@@ -1,12 +1,6 @@
-from fastapi import FastAPI
+import uvicorn
 
-from routers import load_routes
-
-
-def create_app(config_name: str):
-    app = FastAPI(__name__
-                  , title="Desafio Ponto",
-                  description="Api de um sistema de Ponto de uma empresa.",
-                  version="1.0.0")
-    app = load_routes(app)
-    return app
+if __name__ == "__main__":
+    from api.api import create_app
+    app = create_app()
+    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")

@@ -13,7 +13,6 @@ fastapi = "*"
 pendulum = "*"
 pymongo = "*"
 mongomock = "*"
-yaml = "*"
 pyyaml = "*"
 
 [requires]
