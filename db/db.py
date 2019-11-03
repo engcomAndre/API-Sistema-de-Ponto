@@ -7,8 +7,9 @@ class Db:
     db: MongoClient
 
     @staticmethod
-    def find(document: str, where: dict):
-        db = Db.db[document]
+    def find(document: str, where: dict, sort_by: str = None):
+        if sort_by:
+            return list(Db.db[document].find(where).sort(sort_by))
         return list(Db.db[document].find(where))
 
     @staticmethod
@@ -17,8 +18,8 @@ class Db:
         return entity if Db.db[document].insert_one(entity) else None
 
     @staticmethod
-    def update(document: str, instance: BaseModel, new_instance: BaseModel):
-        return Db.db[document].update_one(instance.dict(), new_instance.dict())
+    def update(document: str, where: dict, new_instance: BaseModel):
+        return Db.db[document].update_one(where, {"$set": {**new_instance.dict()}})
 
     @staticmethod
     def delete(document: str, instance: BaseModel):
