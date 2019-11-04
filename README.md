@@ -1,6 +1,10 @@
 ### Api Sistema de Ponto
 Este repositório e de uma API de  Sistema de Ponto como atividade sugestão de desafio no processo seletivo da Empresa PontoTel.
 
+#### Motivação e Descrição
+Para maiores detalhes acesse ,[PONTO TEL DESAFIO - Sistema de Ponto](https://drive.google.com/open?id=1DooIrnWJPQVIswpNDMvVerJH-478HD0j)
+
+
 #### Caracteristicas
 - [API](https://pt.wikipedia.org/wiki/Interface_de_programa%C3%A7%C3%A3o_de_aplica%C3%A7%C3%B5es "API")
 - [Python > 3.6](https://www.python.org/)
@@ -9,6 +13,7 @@ Este repositório e de uma API de  Sistema de Ponto como atividade sugestão de 
 - [Mongo](https://www.mongodb.com "mongo")
 - [Pytest](https://docs.pytest.org/en/latest/getting-started.html "Pytest")
 - [Docker](https://www.docker.com "Docker")
+
 
 ### Rodando a aplicação com Docker-Compose
 Rode os comandos;
