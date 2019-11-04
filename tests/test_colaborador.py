@@ -27,6 +27,6 @@ def test_save_find(web):
 
 
 def test_remove(web):
-    col1.remove()
+    col1.remover()
     col_recuperado = Colaborador.find(cpf=col1.cpf)
     assert str(None), str(col_recuperado)

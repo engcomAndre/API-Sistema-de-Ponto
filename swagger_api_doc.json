@@ -1,0 +1,510 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Desafio Ponto",
+    "version": "1.0.0",
+    "description": "Api de um sistema de Ponto de uma empresa."
+  },
+  "paths": {
+    "/ponto/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Ponto"
+        ],
+        "summary": "Consultar",
+        "operationId": "consultar_ponto__get",
+        "parameters": [
+          {
+            "description": "Id unico de um ponto",
+            "required": false,
+            "schema": {
+              "title": "Id ponto",
+              "type": "string",
+              "description": "Id unico de um ponto"
+            },
+            "name": "ponto_id",
+            "in": "query"
+          },
+          {
+            "description": "Data de registro do ponto ponto formato YYYYMMDD.",
+            "required": false,
+            "schema": {
+              "title": "Data do ponto",
+              "type": "string",
+              "description": "Data de registro do ponto ponto formato YYYYMMDD."
+            },
+            "name": "data",
+            "in": "query"
+          },
+          {
+            "description": "Identificador unico do colaborador.",
+            "required": false,
+            "schema": {
+              "title": "Identificador colaborador",
+              "type": "string",
+              "description": "Identificador unico do colaborador."
+            },
+            "name": "colaborador_id",
+            "in": "query"
+          },
+          {
+            "description": "Mes em formato numérico(Janeiro - 01,Fevereiro - 02...",
+            "required": false,
+            "schema": {
+              "title": "Mes do ano.",
+              "type": "string",
+              "description": "Mes em formato numérico(Janeiro - 01,Fevereiro - 02..."
+            },
+            "name": "mes",
+            "in": "query"
+          }
+        ]
+      }
+    },
+    "/ponto/criar": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Ponto"
+        ],
+        "summary": "Criar",
+        "operationId": "criar_ponto_criar_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Colaborador_Id",
+              "type": "string"
+            },
+            "name": "colaborador_id",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Data",
+              "type": "string"
+            },
+            "name": "data",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Hora_Entrada",
+              "type": "string"
+            },
+            "name": "hora_entrada",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Hora_Saida",
+              "type": "string"
+            },
+            "name": "hora_saida",
+            "in": "query"
+          }
+        ]
+      }
+    },
+    "/ponto/registrar_ponto": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Ponto"
+        ],
+        "summary": "Registrar Ponto",
+        "operationId": "registrar_ponto_ponto_registrar_ponto_post",
+        "parameters": [
+          {
+            "description": "Identificador único do identificador.",
+            "required": true,
+            "schema": {
+              "title": "ID colaborador",
+              "type": "string",
+              "description": "Identificador único do identificador."
+            },
+            "name": "colaborador_id",
+            "in": "query"
+          }
+        ]
+      }
+    },
+    "/ponto/{ponto_id}": {
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Ponto"
+        ],
+        "summary": "Remover",
+        "operationId": "remover_ponto__ponto_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Ponto_Id",
+              "type": "string"
+            },
+            "name": "ponto_id",
+            "in": "path"
+          }
+        ]
+      }
+    },
+    "/colaborador/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Colaborador"
+        ],
+        "summary": "Consultar",
+        "operationId": "consultar_colaborador__get",
+        "parameters": [
+          {
+            "description": "Identificador unico do colaborador",
+            "required": false,
+            "schema": {
+              "title": "Identificador",
+              "type": "string",
+              "description": "Identificador unico do colaborador"
+            },
+            "name": "colaborador_id",
+            "in": "query"
+          },
+          {
+            "description": "Campo CPF do colaborador",
+            "required": false,
+            "schema": {
+              "title": "CPF",
+              "type": "string",
+              "description": "Campo CPF do colaborador"
+            },
+            "name": "cpf",
+            "in": "query"
+          }
+        ]
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Colaborador"
+        ],
+        "summary": "Criar",
+        "operationId": "criar_colaborador__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Colaborador"
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Colaborador"
+        ],
+        "summary": "Remover",
+        "operationId": "remover_colaborador__delete",
+        "parameters": [
+          {
+            "description": "Identificador unico do colaborador",
+            "required": false,
+            "schema": {
+              "title": "Identificador",
+              "type": "string",
+              "description": "Identificador unico do colaborador"
+            },
+            "name": "colaborador_id",
+            "in": "query"
+          },
+          {
+            "description": "Campo CPF do colaborador",
+            "required": false,
+            "schema": {
+              "title": "CPF",
+              "type": "string",
+              "description": "Campo CPF do colaborador"
+            },
+            "name": "cpf",
+            "in": "query"
+          }
+        ]
+      }
+    },
+    "/info/horas": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Ponto_Info"
+        ],
+        "summary": "Consultar Horas",
+        "operationId": "consultar_horas_info_horas_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Colaborador_Id",
+              "type": "string"
+            },
+            "name": "colaborador_id",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Mes",
+              "type": "string"
+            },
+            "name": "mes",
+            "in": "query"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Colaborador": {
+        "title": "Colaborador",
+        "required": [
+          "nome",
+          "cpf"
+        ],
+        "type": "object",
+        "properties": {
+          "nome": {
+            "title": "Nome do colaborador",
+            "maxLength": 120,
+            "minLength": 5,
+            "type": "string"
+          },
+          "endereco": {
+            "title": "Endereço do colaborador",
+            "maxLength": 120,
+            "minLength": 5,
+            "type": "string"
+          },
+          "cpf": {
+            "title": "Cadastro Pessoa Fisica(CPF) da Colaborador.",
+            "pattern": "\\d{11}",
+            "type": "string"
+          }
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
