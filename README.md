@@ -48,11 +48,11 @@ Rode os comandos;
 ### Documentação
 Após subir a aplicação a documentação estará disponível no endereço:
 
-`[URL_BASE]/redoc` 
+`[BASE_URL]/redoc` 
 
 ou
 
-`[URL_BASE]/docs`
+`[BASE_URL]/docs`
 
 Uma imagem similar a abaixo deverá ser mostrado no seu navegador :
 
