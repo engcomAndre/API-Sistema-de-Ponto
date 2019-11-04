@@ -27,7 +27,7 @@ def test_save_find(web):
     col1.save()
     col_test = Colaborador.find(cpf=col1.cpf)
     colaborador_id = col_test[0]['_id']
-    col1.remove()
+    col1.remover()
 
     ponto_salvo = Ponto(colaborador_id=colaborador_id)
     ponto_salvo.criar_registro_ES()
@@ -41,7 +41,7 @@ def test_remove(web):
     col1.save()
     col_test = Colaborador.find(cpf=col1.cpf)
     colaborador_id = col_test[0]['_id']
-    col1.remove()
+    col1.remover()
 
     ponto_salvo = Ponto(colaborador_id=colaborador_id)
     ponto_salvo.criar_registro_ES()

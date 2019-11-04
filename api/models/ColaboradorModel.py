@@ -14,9 +14,9 @@ class Colaborador(BaseModel):
             return self.dict() if Db.save("colaborador", self) else {}
         except:
             # TODO EXCEPT
-            return {}
+            raise Exception
 
-    def remove(self) -> bool:
+    def remover(self) -> bool:
         try:
             return True if Db.delete("colaborador", self) else None
         except:
@@ -24,7 +24,7 @@ class Colaborador(BaseModel):
             return False
 
     @classmethod
-    def find(cls, colaborador_id: str = None, cpf: str = None) -> List[Dict[str,str]]:
+    def find(cls, colaborador_id: str = None, cpf: str = None) -> List[Dict[str, str]]:
         try:
             where = {}
             where.update({"_id": f"{colaborador_id.replace(' ', '')}"} if colaborador_id else {})
@@ -35,4 +35,4 @@ class Colaborador(BaseModel):
             return colaboradores if colaboradores else None
         except:
             # TODO EXCEPT
-            return []
+            raise Exception
