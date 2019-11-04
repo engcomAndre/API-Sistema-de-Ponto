@@ -19,9 +19,9 @@ Rode os comandos;
 
 ### Rodando sem Docker
 #### Instale os programa e requisitos necessários: 
--MongoDB(versão 3.6),
--Python (versão 3.6 ou superior),
--Mongo Compass(Sugestão).
+- MongoDB(versão 3.6),
+- Python (versão 3.6 ou superior),
+- Mongo Compass(Sugestão).
 
 #### Siga os passos abaixo:
 
@@ -57,7 +57,8 @@ ou se preferir ,acesse: [<b>Swagger Editor</b>](https://editor.swagger.io) e fa�
 
 ### Testes
 Os testes foram realizados com o runner [<b>pytest</b>](https://docs.pytest.org/en/latest/) ,é necessário que ele esteja instalado em seu ambiente para executar os testes.
-Existem várias formas de executa-los ,a mais simples e através da IDE [Pycharm](https://www.jetbrains.com/pycharm/)
+Existem várias formas de executa-los ,a mais simples e através da IDE [Pycharm](https://www.jetbrains.com/pycharm/).
 Basicamente,faça:
 1.Acesse a Guia File -> Settings,
-2.Selecione <b>Tools</b> e em <b>Python Integrated Tools</b> e em <b>Testing</b> no campo <b>default test runner</b> selecione <b>pytest</b>
+2.Selecione <b>Tools</b> e em <b>Python Integrated Tools</b> e em <b>Testing</b> no campo <b>default test runner</b> selecione <b>pytest</b>.
+3.Clique com o botão direito sobre a pasta <b>tests</b> e na guia que abrir selecione <b>Run pytest in tests</b>.
