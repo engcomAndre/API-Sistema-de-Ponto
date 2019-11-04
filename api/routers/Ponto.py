@@ -31,8 +31,11 @@ def consultar(
 
 @router.post('/criar')
 def criar(colaborador_id: str, data: str, hora_entrada: str, hora_saida: str) -> Dict[str, str]:
-    ponto = Ponto(colaborador_id=colaborador_id, data=data)
     try:
+        if Ponto.find(colaborador_id=colaborador_id, data=data):
+            return gen_mensagem("Já existe ponto para os parametros informados.")
+
+        ponto = Ponto(colaborador_id=colaborador_id, data=data)
         ponto.registros_ES.append({"entrada": hora_entrada, "saida": hora_saida})
         if ponto.save():
             return gen_mensagem("Ponto criado com sucesso.", [ponto.dict()])

@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from typing import List, Dict, Optional
 
 from utils.responser_utils import gen_mensagem
 
@@ -8,7 +9,7 @@ router = APIRouter()
 
 
 @router.get("/horas")
-async def consultar_horas(colaborador_id: str, mes: str):
+async def consultar_horas(colaborador_id: str, mes: str) -> Dict[str, str or Optional[List[Dict[str, str]]]]:
     try:
         pontos = Ponto.find(colaborador_id=colaborador_id, mes=mes)
         if not pontos:
