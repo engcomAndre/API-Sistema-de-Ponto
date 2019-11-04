@@ -81,7 +81,9 @@
             "in": "query"
           }
         ]
-      },
+      }
+    },
+    "/ponto/criar": {
       "post": {
         "responses": {
           "200": {
@@ -109,7 +111,76 @@
           "Ponto"
         ],
         "summary": "Criar",
-        "operationId": "criar_ponto__post",
+        "operationId": "criar_ponto_criar_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Colaborador_Id",
+              "type": "string"
+            },
+            "name": "colaborador_id",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Data",
+              "type": "string"
+            },
+            "name": "data",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Hora_Entrada",
+              "type": "string"
+            },
+            "name": "hora_entrada",
+            "in": "query"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Hora_Saida",
+              "type": "string"
+            },
+            "name": "hora_saida",
+            "in": "query"
+          }
+        ]
+      }
+    },
+    "/ponto/registrar_ponto": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Ponto"
+        ],
+        "summary": "Registrar Ponto",
+        "operationId": "registrar_ponto_ponto_registrar_ponto_post",
         "parameters": [
           {
             "description": "Identificador único do identificador.",
