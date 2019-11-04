@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Schema, Required
+from typing import List, Dict
 
 from db.db import Db
 
@@ -8,12 +9,12 @@ class Colaborador(BaseModel):
     endereco: str = Schema(None, title="Endereço do colaborador", min_length=5, max_length=120)
     cpf: str = Schema(Required, title="Cadastro Pessoa Fisica(CPF) da Colaborador.", regex="\\d{11}")
 
-    def save(self) -> dict:
-        # try:
-        return self.dict() if Db.save("colaborador", self) else {}
-        # except:
-        #     # TODO EXCEPT
-        #     return {}
+    def save(self) -> Dict:
+        try:
+            return self.dict() if Db.save("colaborador", self) else {}
+        except:
+            # TODO EXCEPT
+            return {}
 
     def remove(self) -> bool:
         try:
@@ -23,7 +24,7 @@ class Colaborador(BaseModel):
             return False
 
     @classmethod
-    def find(cls, colaborador_id: str = None, cpf: str = None) -> list:
+    def find(cls, colaborador_id: str = None, cpf: str = None) -> List[Dict[str,str]]:
         try:
             where = {}
             where.update({"_id": f"{colaborador_id.replace(' ', '')}"} if colaborador_id else {})
