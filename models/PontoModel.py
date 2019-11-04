@@ -2,10 +2,12 @@ import re
 from uuid import uuid1
 from pydantic import BaseModel, Schema, Required
 import pendulum
+from db.db import Db
+
 from pymongo import MongoClient
 
 client = MongoClient('mongodb://localhost:27017')
-db = client.Desafio_Ponto
+db = client.DesafioPonto
 ponto_db = db["ponto"]
 colaborador_db = db["colaborador"]
 
@@ -14,8 +16,12 @@ date_format = "DD/MM/YYYY"
 
 
 class Ponto(BaseModel):
+    _id: str = Schema(None, title="Id colaborador do colaborador")
     colaborador_id: str = Schema(Required, title="Id colaborador do colaborador")
-    # ponto_id: str = Schema(Required, title="Id colaborador do colaborador")
+    # ponto_id: str = Schema(None, title="Id colaborador do colaborador")
+    data: str = Schema(None, title="Data do Ponto", description="Data de registro do ponto")
+    registros_ES: list = Schema([], title='Registro de entrada e saída.', description="Registro de entrada e saída.")
+
     # ponto_entrada: str = Schema(Required, title="Data e hora de registro do ponto na entrada.")
     # ponto_saida: str = Schema(None, title="Data e hora de registro do ponto do ponto da saída.")
 
@@ -30,18 +36,63 @@ class Ponto(BaseModel):
             regex = re.compile(f"\d\d\/{mes.replace(' ', '')}\/\d\d\d\d")
             where.update({"data": regex})
 
-        pontos = list(ponto_db.find(where).sort("data"))
-        return pontos if ponto_db else None
+        pontos = Db.find("ponto", where, sort_by="data")
 
-    @classmethod
-    def abrir_registro_ES(cls, colaborador_id):
-        ponto_dict = {"_id": str(uuid1()),
-                      "colaborador_id": colaborador_id,
-                      "data": pendulum.now().format(date_format),
-                      "registros_ES": [
-                          {"_id": str(uuid1()), "entrada": pendulum.now().format(hour_format), "saida": ""}],
-                      }
-        return True if ponto_db.insert_one(ponto_dict) else False
+        return pontos if pontos else None
+
+    def registrar_virada_in(self) -> bool:
+        res = False
+        res = self.registrar_saida_in("23:59:59")
+        res = self.criar_registro_ES(hour_in='00:00:00', hour_out=pendulum.now().format(hour_format))
+        return res
+
+    def criar_registro_ES(self, hour_in: str = None, hour_out: str = "") -> bool:
+        self.data = pendulum.now().format(date_format)
+        self.registros_ES = []
+        self.registros_ES = [
+            {"_id": str(uuid1()), "entrada": hour_in if hour_in else pendulum.now().format(hour_format),
+             "saida": hour_out if hour_out else ""}]
+        return True if Db.save('ponto', self) else False
+
+    def e_virada(self) -> bool:
+        if not self.data:
+            return False
+        dif_dias = pendulum.period(pendulum.from_format(self.data, date_format), pendulum.now()).in_days()
+        if dif_dias > 0 and self.registros_ES[-1]['saida'] == "":
+            return True
+        return False
+
+    def e_entrada(self) -> bool:
+        if not self.data:
+            return True
+
+        if self.registros_ES[-1]['saida'] != '':
+            return True
+
+        dif_dias = pendulum.period(pendulum.from_format(self.data, date_format), pendulum.now()).in_days()
+        if dif_dias >= 0 and self.registros_ES[-1]["saida"] != "":
+            return True
+
+        return False
+
+    def registrar_entrada_in(self, hour: str = None) -> bool:
+        if not self.data:
+            return self.criar_registro_ES()
+
+        dif_dias = pendulum.period(pendulum.from_format(self.data, date_format), pendulum.now()).in_days()
+        if dif_dias > 0 and self.registros_ES[-1]["saida"] != "":
+            return self.criar_registro_ES()
+
+        where = {"colaborador_id": self.colaborador_id, "data": self.data}
+        self.registros_ES.append(
+            {"_id": str(uuid1()), "entrada": pendulum.now().format(hour_format) if not hour else hour
+                , "saida": ""})
+        return True if Db.update("ponto", where, self) else False
+
+    def registrar_saida_in(self, hora: str = None):
+        where = {"data": self.data, "colaborador_id": self.colaborador_id}
+        self.registros_ES[-1].update({"saida": hora if hora else pendulum.now().format(hour_format)})
+        return True if Db.update("ponto", where, self) else False
 
     @classmethod
     def registrar_entrada(cls, ultimo_ponto):
@@ -85,7 +136,7 @@ class Ponto(BaseModel):
             ponto_db.update(where, set)
             ponto_dict = {"_id": str(uuid1()),
                           "colaborador_id": colaborador_id,
-                          "data": datetime.datetime.now().strftime(date_format),
+                          "data": pendulum.now().format(date_format),
                           "registros_ES": [{"_id": str(uuid1()),
                                             "entrada": "00:00:00",
                                             "saida": pendulum.now().format(hour_format)}],
