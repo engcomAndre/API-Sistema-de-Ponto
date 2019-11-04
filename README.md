@@ -13,6 +13,7 @@ Para maiores detalhes acesse ,[PONTO TEL DESAFIO - Sistema de Ponto](https://dri
 - [Mongo](https://www.mongodb.com "mongo")
 - [Pytest](https://docs.pytest.org/en/latest/getting-started.html "Pytest")
 - [Docker](https://www.docker.com "Docker")
+- [typing](https://docs.python.org/3/library/typing.html)
 
 
 ### Rodando a aplicação com Docker-Compose
