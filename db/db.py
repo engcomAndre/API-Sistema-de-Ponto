@@ -23,4 +23,4 @@ class Db:
 
     @staticmethod
     def delete(document: str, instance: BaseModel):
-        return Db.db[document].delete_one(instance)
+        return Db.db[document].delete_one(instance.dict())

@@ -27,40 +27,50 @@ def consultar(
         mes: str = Query(None, title="Mes do ano.",
                          description="Mes em formato numérico(Janeiro - 01,Fevereiro - 02...")
 ):
-    pontos = Ponto.find(ponto_id, colaborador_id, data, mes)
-    if pontos:
-        return gen_mensagem("Pontos encotrados", pontos)
-    return gen_mensagem("Pontos não encontrados para os parametros informados.")
+    try:
+        pontos = Ponto.find(ponto_id, colaborador_id, data, mes)
+        if pontos:
+            return gen_mensagem("Pontos encotrados", pontos)
+        return gen_mensagem("Pontos não encontrados para os parametros informados.")
+    except:
+        return gen_mensagem("Erro ao excluir ponto")
 
 
 @router.post('/')
 def criar(
         colaborador_id: str = Query(..., title="ID colaborador", description="Identificador único do identificador.")):
     mes = str(pendulum.now().month)
-    colaborador = Colaborador.find(colaborador_id=colaborador_id)
-    if not colaborador:
-        return gen_mensagem("Não existe colaborador para os parametros informados.")
+    try:
+        colaborador = Colaborador.find(colaborador_id=colaborador_id)
+        if not colaborador:
+            return gen_mensagem("Não existe colaborador para os parametros informados.")
 
-    ultimo_ponto = Ponto.find(colaborador_id=colaborador_id, mes=mes)
-    ultimo_ponto = ultimo_ponto.pop() if ultimo_ponto else {'colaborador_id': colaborador_id}
+        ultimo_ponto = Ponto.find(colaborador_id=colaborador_id, mes=mes)
+        ultimo_ponto = ultimo_ponto.pop() if ultimo_ponto else {'colaborador_id': colaborador_id}
 
-    ponto = Ponto(**ultimo_ponto)
+        ponto = Ponto(**ultimo_ponto)
 
-    if ponto.e_entrada() and ponto.registrar_entrada_in():
-        return gen_mensagem("Ponto registrado com sucesso.", ponto)
-    elif ponto.e_virada() and ponto.registrar_virada_in():
-        return gen_mensagem("Ponto registrado com sucesso.", ponto)
-    elif ponto.registrar_saida_in():
-        return gen_mensagem("Ponto registrado com sucesso.", ponto)
-    return gen_mensagem("Problema ao registrar o ponto.")
+        if ponto.e_entrada() and ponto.registrar_entrada_in():
+            return gen_mensagem("Ponto registrado com sucesso.", ponto.dict())
+        elif ponto.e_virada() and ponto.registrar_virada_in():
+            return gen_mensagem("Ponto registrado com sucesso.", ponto.dict())
+        elif ponto.registrar_saida_in():
+            return gen_mensagem("Ponto registrado com sucesso.", ponto.dict())
+        return gen_mensagem("Problema ao registrar o ponto.")
+
+    except:
+        return gen_mensagem("Erro ao excluir ponto")
 
 
 @router.delete("/{ponto_id}")
 def remover(ponto_id: str = Query(None, title="Id ponto", description="Id unico de um ponto")):
-
-    if not Ponto.find(ponto_id):
-        return gen_mensagem("Não exitem pontos para os parametros informados.")
-
-    if Ponto.remover(ponto_id):
-        return gen_mensagem("Ponto removido com sucesso")
-    return gen_mensagem("Problemas ao excluir ponto")
+    try:
+        ponto = Ponto.find(ponto_id)
+        if not ponto:
+            return gen_mensagem("Não exitem pontos para os parametros informados.")
+        ponto = Ponto(**ponto[0])
+        if ponto.remover():
+            return gen_mensagem("Ponto removido com sucesso")
+        return gen_mensagem("Problemas ao excluir ponto")
+    except:
+        return gen_mensagem("Erro ao excluir ponto")
