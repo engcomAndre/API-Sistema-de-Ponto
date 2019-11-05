@@ -3,8 +3,8 @@ import pendulum
 
 from pymongo import MongoClient
 from utils.responser_utils import gen_mensagem
-from models.ColaboradorModel import Colaborador
-from models.PontoModel import Ponto
+from api.models.ColaboradorModel import Colaborador
+from api.models.PontoModel import Ponto
 
 router = APIRouter()
 

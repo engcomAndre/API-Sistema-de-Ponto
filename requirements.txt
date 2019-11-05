@@ -6,4 +6,5 @@ pyyaml
 mongomock
 pytest
 uvicorn
+Enum
 

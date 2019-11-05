@@ -5,9 +5,6 @@ import pendulum
 from db.db import Db
 from utils.time_utils import date_format, hour_format, format_date
 
-hour_format = "HH:mm:ss"
-date_format = "DD/MM/YYYY"
-
 
 class Ponto(BaseModel):
     _id: str = Schema(None, title="Id colaborador do colaborador")
@@ -24,7 +21,7 @@ class Ponto(BaseModel):
             where.update({"colaborador_id": f"{colaborador_id.replace(' ', '')}"} if colaborador_id else {})
 
             if mes:
-                regex = re.compile(f"\d\d\/{mes.replace(' ', '')}\/\d\d\d\d")
+                regex = re.compile(f"\\d\\d\\/{mes.replace(' ', '')}\\/\\d\\d\\d\\d")
                 where.update({"data": regex})
 
             pontos = Db.find("ponto", where, sort_by="data")
@@ -33,6 +30,9 @@ class Ponto(BaseModel):
         except:
             # TODO EXCEPT
             return []
+
+    def criar(self):
+        pass
 
     def registrar_virada_in(self) -> bool:
         try:
@@ -44,14 +44,15 @@ class Ponto(BaseModel):
             # TODO EXCEPT
             return False
 
-    def criar_registro_ES(self, hour_in: str = None, hour_out: str = "") -> bool:
+    def criar_registro_ES(self, hour_in: str = None, hour_out: str = "") -> dict:
         try:
             self.data = pendulum.now().format(date_format)
             self.registros_ES = []
             self.registros_ES = [
                 {"_id": str(uuid1()), "entrada": hour_in if hour_in else pendulum.now().format(hour_format),
                  "saida": hour_out if hour_out else ""}]
-            return True if Db.save('ponto', self) else False
+            ret = Db.save('ponto', self)
+            return ret if ret else False
         except:
             # TODO EXCEPT
             return False

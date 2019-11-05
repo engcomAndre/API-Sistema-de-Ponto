@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query
 
-from models.ColaboradorModel import Colaborador
+from api.models.ColaboradorModel import Colaborador
 
 from utils.responser_utils import gen_mensagem
 

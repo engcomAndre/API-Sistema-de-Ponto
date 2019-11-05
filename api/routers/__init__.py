@@ -1,4 +1,5 @@
-from routers import Colaborador, InfoPonto, Ponto
+from api.routers import InfoPonto, Ponto
+from api.routers import Colaborador
 
 
 def load_routes(app):

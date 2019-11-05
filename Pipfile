@@ -14,6 +14,8 @@ pendulum = "*"
 pymongo = "*"
 mongomock = "*"
 pyyaml = "*"
+enum = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.6"

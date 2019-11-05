@@ -1,10 +1,8 @@
 from fastapi import APIRouter
 
-import pendulum
-from utils.time_utils import date_format, hour_format, format_date
 from utils.responser_utils import gen_mensagem
 
-from models.PontoModel import Ponto
+from api.models.PontoModel import Ponto
 
 router = APIRouter()
 
