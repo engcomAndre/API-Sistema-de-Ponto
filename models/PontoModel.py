@@ -3,6 +3,7 @@ from uuid import uuid1
 from pydantic import BaseModel, Schema, Required
 import pendulum
 from db.db import Db
+from utils.time_utils import date_format, hour_format, format_date
 
 hour_format = "HH:mm:ss"
 date_format = "DD/MM/YYYY"
@@ -112,7 +113,36 @@ class Ponto(BaseModel):
 
     def remover(self) -> bool:
         try:
-            return Db.delete('ponto',self)
+            return Db.delete('ponto', self)
         except:
             # TODO EXCEPT
             return False
+
+    def calcular_horas_dias(self):
+        output = []
+        t_duracao_dia = 0
+        for io in self.registros_ES:
+            try:
+                h_saida = pendulum.parse(io["saida"]) if io["entrada"] else None
+                h_entrada = pendulum.parse(io["entrada"]) if io["saida"] else None
+
+                period = pendulum.period(h_entrada, h_saida).in_seconds()
+                t_duracao_dia += period
+            except:
+                output.append({"Data": self.data,
+                               "Horas Trabalhadas no dia": "Registros com problemas ,não considerado para os cálculos"})
+                pass
+        output.append({"Data": self.data, "Horas Trabalhadas no dia": format_date(t_duracao_dia)})
+
+        return t_duracao_dia, output
+
+    @classmethod
+    def calcular_horas_mes(cls, pontos_mes: list):
+        output = []
+        t_mes = 0
+        for ponto in pontos_mes:
+            ponto = Ponto(**ponto)
+            t_dia, t_res = ponto.calcular_horas_dias()
+            output.append(t_res[0])
+            t_mes += t_dia
+        return t_mes, {"Total de tempo Trabalhado no mês": format_date(t_mes), "Total de horas por dia": output}

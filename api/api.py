@@ -13,7 +13,6 @@ def create_app():
 
     Db.db = MongoClient('mongodb://localhost:27017').DesafioPonto
 
-
     app = load_routes(app)
 
     return app

@@ -33,6 +33,7 @@ def consultar(
             return gen_mensagem("Pontos encotrados", pontos)
         return gen_mensagem("Pontos não encontrados para os parametros informados.")
     except:
+        #TODO EXCEPT
         return gen_mensagem("Erro ao excluir ponto")
 
 
@@ -59,6 +60,7 @@ def criar(
         return gen_mensagem("Problema ao registrar o ponto.")
 
     except:
+        #TODO EXCEPT
         return gen_mensagem("Erro ao excluir ponto")
 
 
@@ -73,4 +75,5 @@ def remover(ponto_id: str = Query(None, title="Id ponto", description="Id unico 
             return gen_mensagem("Ponto removido com sucesso")
         return gen_mensagem("Problemas ao excluir ponto")
     except:
+        #TODO EXCEPT
         return gen_mensagem("Erro ao excluir ponto")
