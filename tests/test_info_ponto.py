@@ -13,14 +13,19 @@ def web():
 
 def test_compute_hours():
     ponto = Ponto(colaborador_id='12345678')
-    ponto.criar_registro_ES()
-    ponto.registrar_entrada_in('00:00:00')
-    ponto.registrar_saida_in('10:00:00')
+    ponto.data = '11/11/1111'
+    ponto.registros_ES = [{'entrada': '08:00:00', 'saida': '12:00:00'}, {'entrada': '13:00:00', 'saida': '18:00:00'}]
 
-    pontos = [ponto.dict()]
-    # TODO continuar e computar as horas it s easy
+    ponto2 = Ponto(colaborador_id='12345678')
+    ponto2.data = '12/11/1111'
+    ponto2.registros_ES = [{'entrada': '08:00:00', 'saida': '12:00:00'}, {'entrada': '13:00:00', 'saida': '18:00:00'}]
 
-    res = Ponto.calcular_horas_mes(pontos)
-    value = None
-    ponto.remover()
-    assert res, value
+    pontos = [ponto.dict(), ponto2.dict()]
+    res1, res2 = 64800, {'Total de tempo Trabalhado no mês': '18:00:00',
+                         'Total de horas por dia': [{'Data': '11/11/1111', 'Horas Trabalhadas no dia': '9:00:00'},
+                                                    {'Data': '12/11/1111', 'Horas Trabalhadas no dia': '9:00:00'}]}
+    val1, val2 = Ponto.calcular_horas_mes(pontos)
+
+    assert res1, val1
+    assert res2, val2
+
