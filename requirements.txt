@@ -1,0 +1,10 @@
+fastapi
+mongomock
+pendulum
+pymongo
+pyyaml
+mongomock
+pytest
+uvicorn
+Enum
+
